@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DisasterSight AI</title>
+    <link rel="stylesheet" href="css/style.css">
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+        integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+        crossorigin=""/>
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <img src="images/logo_icon.png" alt="DisasterSight AI Logo Icon" class="logo-icon"> <!-- Ensure images/logo_icon.png exists -->
+            <h1>DisasterSight AI</h1>
+        </div>
+        <div class="header-right">
+            <span class="status">System Online</span>
+            <button class="dashboard-btn">Dashboard</button>
+        </div>
+    </header>
+
+    <div class="container">
+        <aside class="sidebar">
+            <section class="card analysis-controls">
+                <h2><img src="images/settings_icon.png" alt="" class="icon"> Analysis Controls</h2> <!-- Ensure images/settings_icon.png exists -->
+                <label for="region-selection">Region Selection</label>
+                <select id="region-selection" name="region-selection">
+                    <option value="coastal_city">Coastal City Region</option>
+                    <option value="mountain_valley">Mountain Valley Region</option>
+                    <option value="desert_oasis">Desert Oasis</option>
+                    <option value="urban_center">Urban Center</option>
+                    <option value="default_view">Default All India View</option> <!-- Added for resetting view -->
+                </select>
+
+                <label>Disaster Type</label>
+                <div class="disaster-type-buttons">
+                    <button class="active">Flood</button>
+                    <button>Building Collapse</button>
+                    <button>Landslide</button>
+                    <button>Wildfire</button>
+                </div>
+
+                <label>Analysis Mode</label>
+                <div class="analysis-mode-buttons">
+                    <button class="active">Quick Scan</button>
+                    <button>Deep Analysis</button>
+                </div>
+
+                <label for="detection-threshold">Detection Threshold</label>
+                <div class="slider-container">
+                    <input type="range" id="detection-threshold" name="detection-threshold" min="0" max="100" value="75">
+                    <span id="detection-threshold-value" class="slider-value">75%</span>
+                </div>
+                <div class="threshold-labels">
+                    <span>Low Sensitivity</span>
+                    <span>High Sensitivity</span>
+                </div>
+
+                <button class="run-analysis-btn"><img src="images/play_icon.png" alt="" class="icon"> Run Analysis</button> <!-- Ensure images/play_icon.png exists -->
+            </section>
+
+            <section class="card analysis-results">
+                <h2><img src="images/list_icon.png" alt="" class="icon"> Analysis Results</h2> <!-- Ensure images/list_icon.png exists -->
+                <div class="result-item">
+                    <span>Affected Area</span>
+                    <span class="value">4.2 km²</span>
+                </div>
+                <div class="result-item">
+                    <span>Damage Severity</span>
+                    <div class="progress-bar-container">
+                        <div class="progress-bar" style="width: 65%; background-color: orange;"></div>
+                    </div>
+                    <span class="value">65%</span>
+                </div>
+                <div class="result-item">
+                    <span>Confidence Score</span>
+                    <div class="progress-bar-container">
+                        <div class="progress-bar" style="width: 92%; background-color: green;"></div>
+                    </div>
+                    <span class="value">92%</span>
+                </div>
+                <div class="result-item">
+                    <span>Detected Incidents</span>
+                    <span class="value">18</span>
+                </div>
+
+                <h3>Damage Classification</h3>
+                <div class="damage-classification">
+                    <div class="classification-item"><span>Flood Zones</span><span class="count">7</span></div>
+                    <div class="classification-item"><span>Building Damage</span><span class="count">5</span></div>
+                    <div class="classification-item"><span>Landslides</span><span class="count">3</span></div>
+                    <div class="classification-item"><span>Fire Damage</span><span class="count">3</span></div>
+                </div>
+                <button class="export-report-btn"><img src="images/download_icon.png" alt="" class="icon"> Export Report</button> <!-- Ensure images/download_icon.png exists -->
+            </section>
+        </aside>
+
+        <main class="main-content">
+            <div id="status-messages">
+                <div id="loading-indicator" class="loading-spinner" style="display: none;"></div>
+                <div id="error-message-area" style="display: none;"></div>
+            </div>
+
+            <section class="card satellite-imagery">
+                <div class="card-header">
+                    <h2><img src="images/satellite_icon.png" alt="" class="icon"> Satellite Imagery Analysis</h2> <!-- Ensure images/satellite_icon.png exists -->
+                    <div class="layers-control">
+                        <button><img src="images/layers_icon.png" alt="" class="icon"> Layers</button> <!-- Ensure images/layers_icon.png exists -->
+                        <button>+</button>
+                        <button>-</button>
+                    </div>
+                </div>
+                <div id="map" style="height: 300px;"></div>
+                <div id="layers-panel" class="layers-panel-hidden">
+                    <h4>Map Layers</h4>
+                    <ul>
+                        <li><label><input type="checkbox" checked> Detected Damage</label></li>
+                        <li><label><input type="checkbox"> Infrastructure</label></li>
+                        <li><label><input type="checkbox"> Terrain</label></li>
+                    </ul>
+                </div>
+                <div class="legend">
+                    <span><span class="dot blue"></span> Flood</span>
+                    <span><span class="dot red"></span> Building Collapse</span>
+                    <span><span class="dot orange"></span> Landslide</span>
+                    <span><span class="dot dark-red"></span> Fire Damage</span>
+                </div>
+                <div class="last-updated">Last updated: Today, 10:45 AM</div>
+            </section>
+
+            <section class="card ai-recommendations">
+                 <h2><img src="images/ai_icon.png" alt="" class="icon"> AI-Generated Response Recommendations</h2> <!-- Ensure images/ai_icon.png exists -->
+                <div class="recommendations-grid">
+                    <div class="priority-column high-priority">
+                        <h3><img src="images/high_priority_icon.png" alt="" class="icon-small"> High Priority</h3> <!-- Ensure images/high_priority_icon.png exists -->
+                        <ul>
+                            <li>Deploy rescue teams to collapsed buildings in NE sector</li>
+                            <li>Establish emergency medical station at coordinates 34.2, -118.5</li>
+                            <li>Evacuate residents from flood zones near coastal area</li>
+                        </ul>
+                    </div>
+                    <div class="priority-column medium-priority">
+                        <h3><img src="images/medium_priority_icon.png" alt="" class="icon-small"> Medium Priority</h3> <!-- Ensure images/medium_priority_icon.png exists -->
+                        <ul>
+                            <li>Set up temporary shelters at community centers</li>
+                            <li>Distribute emergency supplies to affected neighborhoods</li>
+                            <li>Deploy engineering teams to assess landslide areas</li>
+                        </ul>
+                    </div>
+                    <div class="priority-column monitoring">
+                        <h3><img src="images/monitoring_icon.png" alt="" class="icon-small"> Monitoring</h3> <!-- Ensure images/monitoring_icon.png exists -->
+                        <ul>
+                            <li>Monitor water levels in eastern flood zones</li>
+                            <li>Track fire spread in northwestern forest area</li>
+                            <li>Assess structural integrity of bridges and roads</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <section class="card resource-allocation">
+                <h2>Resource Allocation</h2>
+                <div class="resource-item">
+                    <span>Medical Teams</span>
+                    <div class="progress-bar-container-horizontal">
+                        <div class="progress-bar-horizontal" style="width: 70%;"></div>
+                    </div>
+                    <span class="value">8 units recommended</span>
+                </div>
+                <div class="resource-item">
+                    <span>Search & Rescue</span>
+                    <div class="progress-bar-container-horizontal">
+                        <div class="progress-bar-horizontal" style="width: 90%;"></div>
+                    </div>
+                    <span class="value">12 units recommended</span>
+                </div>
+                <div class="resource-item">
+                    <span>Temporary Shelters</span>
+                    <div class="progress-bar-container-horizontal">
+                        <div class="progress-bar-horizontal" style="width: 50%;"></div>
+                    </div>
+                    <span class="value">5 locations recommended</span>
+                </div>
+                <div class="resource-item">
+                    <span>Water Pumping Equipment</span>
+                    <div class="progress-bar-container-horizontal">
+                        <div class="progress-bar-horizontal" style="width: 60%;"></div>
+                    </div>
+                    <span class="value">6 units recommended</span>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="js/script.js"></script>
+    <!-- Leaflet JS -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+        integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+        crossorigin=""></script>
+</body>
+</html> 

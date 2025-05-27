@@ -1,0 +1,613 @@
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    margin: 0;
+    background-color: #f0f2f5;
+    color: #333;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+header {
+    background-color: #0052cc; /* Primary blue from image */
+    color: white;
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+}
+
+.logo-icon {
+    width: 30px; /* Adjust as needed */
+    height: 30px; /* Adjust as needed */
+    margin-right: 10px;
+    /* Temporary background for placeholder */
+    background-color: #fff;
+    border-radius: 4px;
+}
+
+.logo h1 {
+    margin: 0;
+    font-size: 1.5em;
+}
+
+.header-right {
+    display: flex;
+    align-items: center;
+}
+
+.status {
+    margin-right: 20px;
+    font-size: 0.9em;
+    padding: 5px 10px;
+    background-color: #4CAF50; /* Green status indicator */
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+}
+
+.status::before {
+    content: '\25CF'; /* Circle character */
+    color: white;
+    margin-right: 5px;
+    font-size: 0.8em;
+}
+
+.dashboard-btn {
+    background-color: #ffffff;
+    color: #0052cc;
+    border: 1px solid #0052cc;
+    padding: 8px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.dashboard-btn:hover {
+    background-color: #e6f0ff;
+}
+
+.container {
+    display: flex;
+    flex: 1;
+    padding: 20px;
+    gap: 20px;
+}
+
+.sidebar {
+    width: 350px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.main-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.card {
+    background-color: white;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+}
+
+.card h2 {
+    margin-top: 0;
+    font-size: 1.2em;
+    color: #003366; /* Darker blue for headings */
+    display: flex;
+    align-items: center;
+}
+
+.card h3 {
+    margin-top: 15px;
+    margin-bottom: 10px;
+    font-size: 1em;
+    color: #003366;
+}
+
+.icon {
+    width: 18px;
+    height: 18px;
+    margin-right: 8px;
+    /* Temporary background for placeholder icons */
+    background-color: #ccc;
+    padding: 2px;
+    border-radius: 2px;
+}
+
+.icon-small {
+    width: 16px;
+    height: 16px;
+    margin-right: 6px;
+    background-color: #ccc;
+    padding: 1px;
+    border-radius: 2px;
+}
+
+/* Analysis Controls */
+.analysis-controls label {
+    display: block;
+    margin-top: 15px;
+    margin-bottom: 5px;
+    font-size: 0.9em;
+    font-weight: 500;
+}
+
+.slider-container {
+    display: flex;
+    align-items: center;
+    gap: 10px; /* Space between slider and value */
+    width: 100%; /* Take full width */
+}
+
+.analysis-controls input[type="range"] {
+    flex-grow: 1; /* Slider takes remaining space */
+    /* remove fixed width if any was set before */
+    padding: 0; /* Adjust padding if needed, or remove if not desired */
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    height: 20px; /* Example height, adjust as needed */
+}
+
+.slider-value {
+    font-weight: bold;
+    color: #0052cc; /* Match primary blue */
+    min-width: 40px; /* Ensure space for "100%" */
+    text-align: right;
+    font-size: 0.9em;
+}
+
+.analysis-controls select {
+    width: 100%;
+}
+
+.disaster-type-buttons,
+.analysis-mode-buttons {
+    display: flex;
+    gap: 5px;
+    margin-bottom: 10px;
+}
+
+.disaster-type-buttons button,
+.analysis-mode-buttons button {
+    flex: 1;
+    padding: 8px;
+    border: 1px solid #ccc;
+    background-color: #f9f9f9;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.9em;
+}
+
+.disaster-type-buttons button.active,
+.analysis-mode-buttons button.active {
+    background-color: #007bff;
+    color: white;
+    border-color: #007bff;
+}
+
+.threshold-labels {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.8em;
+    color: #666;
+    margin-top: 5px;
+}
+
+.run-analysis-btn {
+    background-color: #0052cc; /* Primary blue */
+    color: white;
+    border: none;
+    padding: 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1em;
+    font-weight: bold;
+    width: 100%;
+    margin-top: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.run-analysis-btn:hover {
+    background-color: #0041a3;
+}
+
+/* Analysis Results */
+.analysis-results .result-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 0;
+    font-size: 0.9em;
+}
+
+.analysis-results .result-item .value {
+    font-weight: bold;
+}
+
+.progress-bar-container {
+    flex-grow: 1;
+    height: 10px;
+    background-color: #e0e0e0;
+    border-radius: 5px;
+    margin: 0 10px;
+    overflow: hidden; /* Ensures progress bar stays within bounds */
+    width: 50px; /* Fixed width to better match screenshot */
+}
+
+.progress-bar {
+    height: 100%;
+    border-radius: 5px;
+}
+
+.damage-classification {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-top: 10px;
+    margin-bottom: 15px;
+}
+
+.classification-item {
+    background-color: #f0f2f5;
+    padding: 10px;
+    border-radius: 4px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.85em;
+}
+
+.classification-item .count {
+    background-color: #e0e0e0;
+    color: #333;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-weight: bold;
+}
+
+/* Specific colors for damage classification counts to match image */
+.damage-classification .classification-item:nth-child(1) .count { /* Flood Zones */
+    background-color: #d1e7ff; /* Light blue */
+    color: #0052cc;
+}
+.damage-classification .classification-item:nth-child(2) .count { /* Building Damage */
+    background-color: #ffe0b2; /* Light orange */
+    color: #8c5a00;
+}
+.damage-classification .classification-item:nth-child(3) .count { /* Landslides */
+    background-color: #fff0b2; /* Light yellow */
+    color: #665d1e;
+}
+.damage-classification .classification-item:nth-child(4) .count { /* Fire Damage */
+    background-color: #ffcdd2; /* Light red */
+    color: #c62828;
+}
+
+.export-report-btn {
+    background-color: #6c757d; /* Greyish */
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.9em;
+    width: 100%;
+    margin-top: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.export-report-btn:hover {
+    background-color: #5a6268;
+}
+
+/* Satellite Imagery Analysis */
+.satellite-imagery .card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.layers-control button {
+    background-color: #e9ecef;
+    border: 1px solid #ced4da;
+    color: #495057;
+    padding: 5px 10px;
+    margin-left: 5px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.layers-control button:first-child {
+    margin-left: 0;
+}
+
+.layers-control button img.icon {
+    margin-right: 5px;
+    background-color: transparent; /* Remove placeholder bg for this icon */
+}
+
+#map {
+    width: 100%;
+    /* height is set inline in HTML for now, or can be defined here e.g. height: 400px; */
+    border-radius: 4px;
+    border: 1px solid #ddd;
+}
+
+.layers-panel-hidden {
+    display: none;
+    border: 1px solid #eee;
+    padding: 10px;
+    margin-top: 10px;
+    background-color: #f9f9f9;
+    border-radius: 4px;
+}
+
+.layers-panel-visible {
+    display: block;
+    border: 1px solid #eee;
+    padding: 10px;
+    margin-top: 10px;
+    background-color: #f9f9f9;
+    border-radius: 4px;
+}
+
+.layers-panel-visible h4 {
+    margin-top: 0;
+    margin-bottom: 5px;
+}
+
+.layers-panel-visible ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.layers-panel-visible li {
+    padding: 3px 0;
+}
+
+.legend {
+    display: flex;
+    gap: 15px;
+    font-size: 0.8em;
+    margin-top: 10px;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.legend .dot {
+    height: 10px;
+    width: 10px;
+    border-radius: 50%;
+    display: inline-block;
+    margin-right: 5px;
+}
+.legend .blue {
+    background-color: #007bff;}
+.legend .red {
+    background-color: #dc3545;}
+.legend .orange {
+    background-color: #fd7e14;}
+.legend .dark-red {
+    background-color: #8B0000; /* Dark Red */}
+
+.last-updated {
+    font-size: 0.8em;
+    color: #666;
+    text-align: right;
+    margin-top: 10px;
+}
+
+/* AI-Generated Response Recommendations */
+.ai-recommendations h2 {
+    margin-bottom: 15px;
+}
+.recommendations-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+}
+
+.priority-column {
+    background-color: #f8f9fa;
+    padding: 15px;
+    border-radius: 6px;
+    border: 1px solid #e9ecef;
+}
+
+.priority-column h3 {
+    margin-top: 0;
+    font-size: 1em;
+    display: flex;
+    align-items: center;
+}
+
+/* Specific styling for priority cards from image */
+.high-priority {
+    border-left: 4px solid #dc3545; /* Red for high priority */
+}
+.high-priority h3 {
+    color: #dc3545;
+}
+
+.medium-priority {
+    border-left: 4px solid #ffc107; /* Yellow/Orange for medium */
+}
+.medium-priority h3 {
+    color: #c79100;
+}
+
+.monitoring {
+    border-left: 4px solid #17a2b8; /* Teal/Info for monitoring */
+}
+.monitoring h3 {
+    color: #17a2b8;
+}
+
+.priority-column ul {
+    list-style-type: none;
+    padding-left: 0;
+    margin: 0;
+    font-size: 0.9em;
+}
+
+.priority-column li {
+    padding: 5px 0;
+    line-height: 1.4;
+}
+
+/* Resource Allocation */
+.resource-allocation .resource-item {
+    display: grid;
+    grid-template-columns: 150px 1fr auto;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 0;
+    font-size: 0.9em;
+}
+
+.resource-allocation .resource-item span:first-child {
+    font-weight: 500;
+}
+
+.progress-bar-container-horizontal {
+    height: 12px;
+    background-color: #e9ecef;
+    border-radius: 6px;
+    overflow: hidden;
+}
+
+.progress-bar-horizontal {
+    height: 100%;
+    background-color: #28a745; /* Green */
+    border-radius: 6px;
+}
+
+.resource-allocation .value {
+    font-size: 0.85em;
+    color: #666;
+    text-align: right;
+}
+
+/* Status Messages & Loading Indicators */
+#status-messages {
+    padding: 10px;
+    text-align: center;
+}
+
+.loading-spinner {
+    border: 5px solid #f3f3f3; /* Light grey */
+    border-top: 5px solid #0052cc; /* Blue from header */
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    animation: spin 1s linear infinite;
+    margin: 20px auto; /* Centered */
+    display: none; /* Hidden by default */
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+#error-message-area {
+    color: #D8000C; /* Standard error red */
+    background-color: #FFD2D2; /* Light red background */
+    border: 1px solid #D8000C;
+    padding: 10px;
+    border-radius: 4px;
+    margin: 10px 0;
+    display: none; /* Hidden by default */
+}
+
+/* Responsive Adjustments */
+@media (max-width: 1200px) {
+    .sidebar {
+        width: 300px;
+    }
+    .recommendations-grid {
+        grid-template-columns: 1fr; /* Stack recommendation cards on smaller screens */
+    }
+}
+
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column;
+        padding: 10px;
+    }
+    .sidebar {
+        width: 100%;
+        order: 2; /* Sidebar below main content on mobile */
+    }
+    .main-content {
+        order: 1;
+    }
+    header {
+        flex-direction: column;
+        padding: 15px;
+    }
+    .logo h1 {
+        font-size: 1.3em;
+    }
+    .header-right {
+        margin-top: 10px;
+    }
+    .disaster-type-buttons button,
+    .analysis-mode-buttons button {
+        font-size: 0.8em;
+    }
+    .resource-allocation .resource-item {
+        grid-template-columns: 120px 1fr auto;
+        font-size: 0.85em;
+    }
+
+}
+
+@media (max-width: 480px) {
+    .damage-classification {
+        grid-template-columns: 1fr;
+    }
+     .header-right {
+        flex-direction: column;
+        align-items: stretch;
+        width: 100%;
+    }
+    .status {
+        margin-right: 0;
+        margin-bottom: 10px;
+        justify-content: center;
+    }
+    .dashboard-btn {
+        width: 100%;
+    }
+    .resource-allocation .resource-item {
+        grid-template-columns: 1fr; /* Stack resource items */
+        text-align: left;
+    }
+    .resource-allocation .resource-item span:first-child {
+        margin-bottom: 5px;
+    }
+     .resource-allocation .value {
+        text-align: left;
+        margin-top: 5px;
+    }
+} 
